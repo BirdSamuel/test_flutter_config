@@ -32,25 +32,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String testEntry = '';
+  String noQuoteEntry = '';
+  String firstTestEntry = '';
   String secondTestEntry = '';
-  String brokenTestEntry = '';
+  String thirdTestEntry = '';
+  String exampleUrl = '';
   bool _enabled = true;
 
   void _loadEnvVariables() {
     setState(() {
+      // Separating out gets in case any fail
       try {
-        testEntry = FlutterConfig.get('TEST_ENTRY');
-        secondTestEntry = FlutterConfig.get('SECOND_TEST_ENTRY');
-        brokenTestEntry = FlutterConfig.get('BROKEN_TEST_ENTRY');
-
-        if (testEntry.isNotEmpty ||
-            secondTestEntry.isNotEmpty ||
-            brokenTestEntry.isNotEmpty) {
-          _enabled = false;
-        }
+        noQuoteEntry = FlutterConfig.get('NO_QUOTE_ENTRY');
       } catch (e) {
         print(e);
+      }
+
+      try {
+        firstTestEntry = FlutterConfig.get('FIRST_TEST_ENTRY');
+      } catch (e) {
+        print(e);
+      }
+
+      try {
+        secondTestEntry = FlutterConfig.get('SECOND_TEST_ENTRY');
+      } catch (e) {
+        print(e);
+      }
+
+      try {
+        thirdTestEntry = FlutterConfig.get('THIRD_TEST_ENTRY');
+      } catch (e) {
+        print(e);
+      }
+
+      try {
+        exampleUrl = FlutterConfig.get('EXAMPLE_URL');
+      } catch (e) {
+        print(e);
+      }
+
+      // Disable retry, just for user knowledge sake
+      if (noQuoteEntry.isNotEmpty ||
+          secondTestEntry.isNotEmpty ||
+          secondTestEntry.isNotEmpty ||
+          thirdTestEntry.isNotEmpty ||
+          exampleUrl.isNotEmpty) {
+        _enabled = false;
       }
     });
   }
@@ -66,7 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'TEST_ENTRY: \n$testEntry\n',
+              'NO_QUOTE_ENTRY: \n$noQuoteEntry\n',
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'FIRST_TEST_ENTRY: \n$firstTestEntry\n',
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             ),
@@ -76,7 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
             ),
             Text(
-              'BROKEN_TEST_ENTRY: \n$brokenTestEntry\n',
+              'THIRD_TEST_ENTRY: \n$thirdTestEntry\n',
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'EXAMPLE_URL: \n$exampleUrl\n',
               style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             ),
